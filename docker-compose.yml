@@ -1,0 +1,16 @@
+services:
+  web:
+    build: ./web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./www:/var/www/html:ro
+      - ./var-user:/var/user:ro
+    depends_on:
+      - php
+
+  php:
+    image: php:8.2-fpm
+    volumes:
+      - ./www:/var/www/html:ro
+      - ./php/zz-lab.conf:/usr/local/etc/php-fpm.d/zz-lab.conf:ro
