@@ -17,3 +17,6 @@ RUN printf '\nIncludeOptional conf/lab/*.conf\n' >> conf/httpd.conf
 COPY conf/ conf/lab/
 
 RUN htpasswd -cb conf/.htpasswd admin secret123
+
+COPY scripts/ /var/www/scripts/
+RUN chmod +x /var/www/scripts/download.cgi
