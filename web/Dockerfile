@@ -9,9 +9,12 @@ RUN sed -i \
     -e 's|^#\(LoadModule authn_core_module .*\)|\1|' \
     -e 's|^#\(LoadModule authz_core_module .*\)|\1|' \
     -e 's|^#\(LoadModule authz_user_module .*\)|\1|' \
-    -e 's|^#\(LoadModule cgid_module .*\)|\1|' \
     -e 's|^#\(LoadModule alias_module .*\)|\1|' \
     conf/httpd.conf
+
+RUN grep -q '^LoadModule cgid_module' conf/httpd.conf || echo 'LoadModule cgid_module modules/mod_cgid.so' >> conf/httpd.conf
+
+RUN sed -i 's|^\([[:space:]]*\)ScriptAlias /cgi-bin/|\1#ScriptAlias /cgi-bin/|' conf/httpd.conf
 
 RUN printf '\nIncludeOptional conf/lab/*.conf\n' >> conf/httpd.conf
 COPY conf/ conf/lab/

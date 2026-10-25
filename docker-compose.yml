@@ -6,6 +6,7 @@ services:
     volumes:
       - ./www:/var/www/html:ro
       - ./var-user:/var/user:ro
+      - ./gadget:/usr/share/gadget:ro
     depends_on:
       - php
 
@@ -14,3 +15,4 @@ services:
     volumes:
       - ./www:/var/www/html:ro
       - ./php/zz-lab.conf:/usr/local/etc/php-fpm.d/zz-lab.conf:ro
+      - ./gadget:/usr/share/gadget:ro
